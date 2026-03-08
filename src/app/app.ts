@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,8 @@ export class App implements OnInit, OnDestroy {
   title = 'CRUD';
   isLoginPage = false;
   private routerSubscription: any;
-
-  constructor(private router: Router) {}
+  private router = inject(Router);
+  private authService = inject(AuthService);
 
   ngOnInit() {
     this.routerSubscription = this.router.events.pipe(
@@ -32,7 +33,6 @@ export class App implements OnInit, OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem('enquiryApp');
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 }
