@@ -1,0 +1,82 @@
+<div class="card-header bg-primary text-white">
+  <h4 class="mb-0">Enquiry Management Form</h4>
+</div>
+<div class="card-body">
+  <form>
+    <h5 class="text-primary border-bottom pb-2 mb-3">Customer Details</h5>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Customer Name</label>
+        <input type="text" class="form-control" name="customerName" [(ngModel)]="EnquiryModel.customerName" placeholder="Enter customer name">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Customer Email</label>
+        <input type="email" class="form-control" #email="ngModel" email name="customerEmail" [(ngModel)]="EnquiryModel.customerEmail" placeholder="Enter email address">
+         <div class="text-danger mt-1" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <small *ngIf="email.errors?.['required']">Email is required</small>
+          <small *ngIf="email.errors?.['email']">Enter a valid email address</small>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Customer Phone</label>
+        <input type="tel" class="form-control" name="customerPhone" minlength="0" maxlength="10" [(ngModel)]="EnquiryModel.customerPhone" pattern="[0-9]{10}" placeholder="Enter phone number">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Enquiry Type</label>
+        <input type="text" class="form-control" name="enquiryType" [(ngModel)]="EnquiryModel.enquiryType" placeholder="Online / Walk-in / Phone">
+      </div>
+    </div>
+    <h5 class="text-primary border-bottom pb-2 mb-3 mt-4">Enquiry Details</h5>
+    <div class="mb-3">
+      <label class="form-label">Message</label>
+      <textarea class="form-control" name="message" [(ngModel)]="EnquiryModel.message" rows="3" placeholder="Enter enquiry message"></textarea>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Category</label>
+        <select class="form-select" name="categoryId" [(ngModel)]="EnquiryModel.categoryId">
+          <option selected disabled>-- Select Category --</option>
+          <option *ngFor="let item of categories" [value]="item.categoryId">{{item.categoryName}}s</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Status</label>
+        <select class="form-select" name="statusId" [(ngModel)]="EnquiryModel.statusId">
+          <option selected disabled>-- Select Status --</option>
+          <option *ngFor="let item of statuses" [value]="item.statusId">{{item.statusName}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" name="isConverted" [(ngModel)]="EnquiryModel.isConverted" id="isConverted">
+      <label class="form-check-label" for="isConverted">
+        Is Converted to Customer?
+      </label>
+    </div>
+    <h5 class="text-primary border-bottom pb-2 mb-3 mt-4">Tracking Details</h5>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Enquiry Date</label>
+        <input type="datetime-local" class="form-control" name="enquiryDate" [(ngModel)]="EnquiryModel.enquiryDate">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Follow Up Date</label>
+        <input type="datetime-local" class="form-control" name="followUpDate" [(ngModel)]="EnquiryModel.followUpDate">
+      </div>
+    </div>
+    <h5 class="text-primary border-bottom pb-2 mb-3 mt-4">Feedback</h5>
+
+    <div class="mb-3">
+      <label class="form-label">Feedback</label>
+      <textarea class="form-control" name="feedback" [(ngModel)]="EnquiryModel.feedback" rows="2" placeholder="Enter feedback"></textarea>
+    </div>
+    <div class="d-flex justify-content-end gap-2 mt-4">
+      <button type="reset" class="btn btn-secondary">Clear</button>
+      <button type="submit" class="btn btn-success" *ngIf="!isEdit" (click)="saveEnquiry()">Save Enquiry</button>
+      <button type="submit" class="btn btn-success" *ngIf="isEdit" (click)="updateEnquiry()">Update Enquiry</button>
+    </div>
+  </form>
