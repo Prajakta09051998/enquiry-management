@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { webConfig } from '../../configuration';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +10,16 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.scss',
 })
 export class Home {
-
+  enquiries: any[] = [];
+  constructor(private http: HttpClient, private router: Router) {
+  }
+  ngOnInit() {
+      this.getEnquiry();
+    }
+    getEnquiry() {
+      this.http.get(webConfig.GetEnquiry).subscribe((res: any) => {
+        this.enquiries = res.data.slice(0, 5);
+        console.log(this.enquiries,'enquiry');
+      })
+    }
 }

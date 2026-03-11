@@ -16,6 +16,7 @@ export class SubmitEnquiry implements OnInit {
   isEdit = false;
   statuses: any[] = [];
   categories: any[] = [];
+  today: string = '';
   EnquiryModel: any = {
     enquiryId: 0,
     customerName: '',
@@ -34,6 +35,8 @@ export class SubmitEnquiry implements OnInit {
   }
 
   ngOnInit() {
+    const date = new Date();
+    this.today = date.toISOString().split('T')[0];
     this.getCategory();
     this.getStatuses();
     const id = this.route.snapshot.paramMap.get('id');
@@ -64,13 +67,21 @@ export class SubmitEnquiry implements OnInit {
       }
     )
   }
-  getEnquiryById(id:any){
-    this.http.get(webConfig.GetEnquiryById + id)
-    .subscribe((res:any)=>{
+getEnquiryById(id: any) {
+  this.http.get(webConfig.GetEnquiryById + id)
+    .subscribe((res: any) => {
       this.EnquiryModel = res.data;
-      console.log(this.EnquiryModel,'edit data');
-    })
-  }
+      if (this.EnquiryModel.enquiryDate) {
+        this.EnquiryModel.enquiryDate =
+          this.EnquiryModel.enquiryDate.split('T')[0];
+      }
+      if (this.EnquiryModel.followUpDate) {
+        this.EnquiryModel.followUpDate =
+          this.EnquiryModel.followUpDate.split('T')[0];
+      }
+      console.log(this.EnquiryModel, 'edit data');
+    });
+}
   saveEnquiry() {
 
   const payload = {
@@ -94,8 +105,14 @@ export class SubmitEnquiry implements OnInit {
 
 }
   updateEnquiry() {
-    const id = this.EnquiryModel.enquiryId;
-    this.http.put(webConfig.UpdateEnquiry + '/' + id, this.EnquiryModel).subscribe((res: any) => {
+    const payload = {
+    ...this.EnquiryModel,
+    enquiryDate: new Date(this.EnquiryModel.enquiryDate).toISOString(),
+    followUpDate: new Date(this.EnquiryModel.followUpDate).toISOString()
+    };
+    const id = payload.enquiryId;
+          console.log('Updated Email:', payload);
+    this.http.put(webConfig.UpdateEnquiry + '/' + id, payload).subscribe((res: any) => {
       console.log(res);
       alert('Enquiry updated successfully!');
       setTimeout(() => {
