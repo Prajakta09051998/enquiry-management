@@ -1,0 +1,21 @@
+<div class="login-wrap">
+    <div class="login-card">
+      <div class="text-center mb-4">
+        <h3 class="login-title">Welcome 👋</h3>
+        <p class="text-muted">Login to your account</p>
+      </div>
+  
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Email address</label>
+          <input type="email" class="form-control" [(ngModel)]="loginObj.username" name="username" placeholder="Enter your email">
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" [(ngModel)]="loginObj.pwd" name="password" placeholder="Enter your password">
+        </div>
+        <button type="submit" class="btn btn-login w-100" (click)="login()">Login</button>
+      </form>
+    </div>
+</div>

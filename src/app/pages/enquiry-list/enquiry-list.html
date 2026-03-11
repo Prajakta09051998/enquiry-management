@@ -1,0 +1,45 @@
+<div class="container my-4">
+    <h2 class="mb-1">Enquiry Management</h2>
+    <p class="text-muted">View and manage all customer enquiries</p>
+    <div class="row g-4">
+        <div class="col-md-4" *ngFor="let enquiry of enquiries">
+            <div class="card enquiry-card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between">
+                        <span>ID: {{ enquiry.enquiryId }}</span>
+                        <span class="badge bg-light text-primary">NEW</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="fw-bold">{{ enquiry.customerName }}</h5>
+                    <div class="text-muted small mb-1">
+                        📧 {{ enquiry.customerEmail }}
+                    </div>
+                    <div class="text-muted small mb-2">
+                        📞 {{ enquiry.customerPhone }}
+                    </div>
+                    <div class="enquiry-box mb-3">
+                        <small class="text-uppercase text-muted">{{ enquiry.enquiryType }}</small>
+                        <p class="mb-1">{{ enquiry.message }}</p>
+                    </div>
+                    <div class="alert alert-warning py-2 small">
+                        {{ enquiry.feedback }}
+                    </div>
+                    <div class="row small mt-3">
+                        <div class="col-6">
+                            <label class="text-muted">ENQUIRY DATE</label>
+                            <div>{{ enquiry.enquiryDate | date: 'dd/MMM/yyyy' }}</div>
+                        </div>
+                        <div class="col-6">
+                            <label class="text-muted">FOLLOW UP</label>
+                            <div>{{ enquiry.followUpDate | date: 'dd/MMM/yyyy' }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                        <button class="btn btn-sm btn-outline-secondary" (click)="editEnquiry(enquiry.enquiryId)">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
