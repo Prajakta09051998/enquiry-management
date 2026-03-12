@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { webConfig } from '../../configuration';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
@@ -18,7 +19,7 @@ export class Home {
     }
     getEnquiry() {
       this.http.get(webConfig.GetEnquiry).subscribe((res: any) => {
-        this.enquiries = res.data.slice(0, 5);
+        this.enquiries = res.data.slice(0, 3);
         console.log(this.enquiries,'enquiry');
       })
     }

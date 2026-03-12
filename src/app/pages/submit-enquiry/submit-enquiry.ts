@@ -92,7 +92,7 @@ getEnquiryById(id: any) {
 
   console.log('Request Payload:', payload);
 
-  this.http.post(webConfig.SaveEnquiry, payload).subscribe({
+  this.http.post('http://localhost:3000/enquiries', payload).subscribe({
     next: (res: any) => {
       console.log('Success:', res);
       alert('Enquiry submitted successfully!');

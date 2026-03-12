@@ -5,6 +5,49 @@
     <a routerLink="/submit-enquiry" class="btn btn-light mt-3">Get Started</a>
   </div>
 </section>
+<section class="pt-5">
+  <div class="container">
+    <div class="text-end">
+      <a routerLink="/enquiry-list">Show More <i class="bi bi-arrow-left"></i> </a>
+    </div>
+      <div class="row pt-4 g-4">
+        @for (enquiry of enquiries; track enquiry.enquiryId) {
+          <div class="col-md-6 col-lg-4">
+            <div class="card enquiry-card shadow-sm">
+              <div class="card-header">{{enquiry.customerName}}</div>
+
+              <div class="card-body">
+                <div class="info-item">
+                  <span>Email</span>
+                  <p>{{enquiry.customerEmail}}</p>
+                </div>
+
+                <div class="info-item">
+                  <span>Phone</span>
+                  <p>{{enquiry.customerPhone}}</p>
+                </div>
+
+                <div class="info-item">
+                  <span>Enquiry Date</span>
+                  <p>{{enquiry.enquiryDate | date}}</p>
+                </div>
+
+                <div class="info-item">
+                  <span>Follow Up</span>
+                  <p>{{enquiry.followUpDate | date}}</p>
+                </div>
+
+                <div class="feedback">
+                  <b>Feedback</b>
+                  <p>{{enquiry.feedback}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+  </div>
+</section>
 <section class="py-5">
   <div class="container">
     <h2 class="text-center mb-4">Key Features</h2>
@@ -36,7 +79,13 @@
   <div class="container">
     <h2 class="text-center mb-3">About the Application</h2>
     <p class="text-center">
-   The Enquiry Management System helps businesses handle customer queries efficiently. It allows staff to record, update, and track enquiries, ensuring no request is missed. The system centralizes all customer enquiries in one place, making it easier for teams to manage communication and maintain organized records. Each enquiry can include important details such as the customer’s name, contact information, the nature of the request, and the date of submission. This ensures that staff members have all the necessary information readily available when responding to customers.
+      The Enquiry Management System helps businesses handle customer queries efficiently. It allows
+      staff to record, update, and track enquiries, ensuring no request is missed. The system
+      centralizes all customer enquiries in one place, making it easier for teams to manage
+      communication and maintain organized records. Each enquiry can include important details such
+      as the customer’s name, contact information, the nature of the request, and the date of
+      submission. This ensures that staff members have all the necessary information readily
+      available when responding to customers.
     </p>
   </div>
 </section>
