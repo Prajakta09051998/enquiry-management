@@ -18,7 +18,6 @@ export class SubmitEnquiry implements OnInit {
   categories: any[] = [];
   today: string = '';
   EnquiryModel: any = {
-    enquiryId: 0,
     customerName: '',
     customerEmail: '',
     customerPhone: '',
@@ -42,35 +41,27 @@ export class SubmitEnquiry implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEdit = true;
-      this.getEnquiryById(+id);
+      this.getEnquiryById(id);
     }
   }
   getCategory() {
-    this.http.get(webConfig.GetCategory).subscribe((res: any) => {
-      const data = res.data;
-      this.categories = data.filter(
-        (item: any, index: number, self: any[]) =>
-          index === self.findIndex(t => t.categoryName === item.categoryName)
-      );
+    this.http.get('http://localhost:3000/categories').subscribe((res: any) => {
+      this.categories = res;
       console.log(this.categories,'categories');
       }
     )
   }
   getStatuses() {
-    this.http.get(webConfig.Getstatuses).subscribe((res: any) => {
-      const data = res.data;
-      this.statuses = data.filter(
-        (item: any, index: number, self: any[]) =>
-          index === self.findIndex(t => t.statusName === item.statusName)
-      );
+    this.http.get('http://localhost:3000/statuses').subscribe((res: any) => {
+      this.statuses = res;
       console.log(this.statuses,'status');
       }
     )
   }
 getEnquiryById(id: any) {
-  this.http.get(webConfig.GetEnquiryById + id)
+  this.http.get('http://localhost:3000/enquiries/' + id)
     .subscribe((res: any) => {
-      this.EnquiryModel = res.data;
+      this.EnquiryModel = res;
       if (this.EnquiryModel.enquiryDate) {
         this.EnquiryModel.enquiryDate =
           this.EnquiryModel.enquiryDate.split('T')[0];
@@ -82,8 +73,10 @@ getEnquiryById(id: any) {
       console.log(this.EnquiryModel, 'edit data');
     });
 }
-  saveEnquiry() {
-
+  saveEnquiry(form: any) {
+ if (form.invalid) {
+    return; // stop submission
+  }
   const payload = {
     ...this.EnquiryModel,
     enquiryDate: new Date(this.EnquiryModel.enquiryDate).toISOString(),
@@ -96,6 +89,9 @@ getEnquiryById(id: any) {
     next: (res: any) => {
       console.log('Success:', res);
       alert('Enquiry submitted successfully!');
+      setTimeout(() => {
+        this.router.navigate(['/enquiry-list']);
+      }, 1000);
     },
     error: (err) => {
       console.log('API Error:', err);
@@ -104,15 +100,20 @@ getEnquiryById(id: any) {
   });
 
 }
-  updateEnquiry() {
+  updateEnquiry(form: any) {
+  if (form.invalid) {
+    return;
+  }
     const payload = {
     ...this.EnquiryModel,
     enquiryDate: new Date(this.EnquiryModel.enquiryDate).toISOString(),
     followUpDate: new Date(this.EnquiryModel.followUpDate).toISOString()
     };
-    const id = payload.enquiryId;
+    const id = this.EnquiryModel.id;
+    console.log(id,'id');
+    
           console.log('Updated Email:', payload);
-    this.http.put(webConfig.UpdateEnquiry + '/' + id, payload).subscribe((res: any) => {
+    this.http.put('http://localhost:3000/enquiries' + '/' + id, payload).subscribe((res: any) => {
       console.log(res);
       alert('Enquiry updated successfully!');
       setTimeout(() => {

@@ -1,19 +1,77 @@
 {
-  "posts": [
+  "enquiries": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "id": "e3b4",
+      "customerName": "Sonal",
+      "customerEmail": "sonal67@gmail.com",
+      "customerPhone": "9786786767",
+      "message": "jhhghjjjhgh",
+      "categoryId": 1,
+      "statusId": 2,
+      "enquiryType": "Online",
+      "isConverted": false,
+      "enquiryDate": "2026-12-31T00:00:00.000Z",
+      "followUpDate": "2026-01-31T00:00:00.000Z",
+      "feedback": "hfhghffhg"
+    },
+    {
+      "id": "b329",
+      "customerName": "hghhg",
+      "customerEmail": "jhghjg",
+      "customerPhone": "7656675675",
+      "message": "hjghghjghg",
+      "categoryId": "2",
+      "statusId": "2",
+      "enquiryType": "jghg",
+      "isConverted": false,
+      "enquiryDate": "2026-03-13T00:00:00.000Z",
+      "followUpDate": "2026-03-18T00:00:00.000Z",
+      "feedback": "xftgdfgf"
     }
   ],
-  "comments": [
+  "categories": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": "1",
+      "name": "Product Inquiry"
+    },
+    {
+      "id": "2",
+      "name": "Technical Support"
+    },
+    {
+      "id": "3",
+      "name": "Billing Issue"
+    },
+    {
+      "id": "4",
+      "name": "Complaint"
+    },
+    {
+      "id": "5",
+      "name": "Feedback"
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "statuses": [
+    {
+      "id": "1",
+      "name": "New"
+    },
+    {
+      "id": "2",
+      "name": "In Progress"
+    },
+    {
+      "id": "3",
+      "name": "Follow-up Required"
+    },
+    {
+      "id": "4",
+      "name": "Resolved"
+    },
+    {
+      "id": "5",
+      "name": "Closed"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

@@ -18,8 +18,8 @@ export class Home {
       this.getEnquiry();
     }
     getEnquiry() {
-      this.http.get(webConfig.GetEnquiry).subscribe((res: any) => {
-        this.enquiries = res.data.slice(0, 3);
+      this.http.get('http://localhost:3000/enquiries').subscribe((res: any) => {
+        this.enquiries = res.slice(0, 3);
         console.log(this.enquiries,'enquiry');
       })
     }

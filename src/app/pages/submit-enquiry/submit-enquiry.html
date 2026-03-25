@@ -2,11 +2,11 @@
   <h4 class="mb-0">Enquiry Management Form</h4>
 </div>
 <div class="card-body">
-  <form (ngSubmit)="isEdit ? updateEnquiry() : saveEnquiry()" #enquiryForm="ngForm">
+  <form (ngSubmit)="isEdit ? updateEnquiry(enquiryForm) : saveEnquiry(enquiryForm)" #enquiryForm="ngForm">
     <h5 class="text-primary border-bottom pb-2 mb-3">Customer Details</h5>
     <div class="row mb-3">
       <div class="col-md-6">
-        <label class="form-label">Customer Name</label>
+        <label class="form-label">Customer Name<span class="error">*</span> </label>
         <input
           type="text"
           #customerName="ngModel"
@@ -14,18 +14,18 @@
           pattern="^[A-Za-z ]+$"
           class="form-control"
           name="customerName"
-          placeholder="Enter customer name"
+          placeholder="Enter customer name" required
         />
         <div
           class="text-danger mt-1"
-          *ngIf="customerName.invalid && (customerName.dirty || customerName.touched)">
+          *ngIf="customerName.invalid && (customerName.touched || enquiryForm.submitted)">
           <small *ngIf="customerName.errors?.['required']"> Name is required </small>
 
           <small *ngIf="customerName.errors?.['pattern']"> Numbers are not allowed </small>
         </div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Customer Email</label>
+        <label class="form-label">Customer Email<span class="error">*</span></label>
         <input
           type="email"
           class="form-control"
@@ -35,7 +35,7 @@
           [(ngModel)]="EnquiryModel.customerEmail" required
           placeholder="Enter email address"
         />
-        <div class="text-danger mt-1" *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div class="text-danger mt-1" *ngIf="email.invalid && (email.touched || enquiryForm.submitted)">
           <small *ngIf="email.errors?.['required']">Email is required</small>
           <small *ngIf="email.errors?.['email']">Enter a valid email address</small>
         </div>
@@ -43,27 +43,35 @@
     </div>
     <div class="row mb-3">
       <div class="col-md-6">
-        <label class="form-label">Customer Phone</label>
+        <label class="form-label">Customer Phone<span class="error">*</span></label>
         <input
           type="tel"
           class="form-control"
           name="customerPhone"
           minlength="0"
-          maxlength="10"
-          [(ngModel)]="EnquiryModel.customerPhone"
+          maxlength="10" #customerPhone="ngModel"
+          [(ngModel)]="EnquiryModel.customerPhone" required
           pattern="[0-9]{10}"
           placeholder="Enter phone number"
         />
+        <div class="text-danger mt-1" *ngIf="customerPhone.invalid && (customerPhone.touched || enquiryForm.submitted)">
+          <small *ngIf="customerPhone.errors?.['required']">Phone number is required</small>
+          <small *ngIf="customerPhone.errors?.['pattern']">Enter a valid phone number</small>
+        </div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Enquiry Type</label>
+        <label class="form-label">Enquiry Type<span class="error">*</span></label>
         <input
           type="text"
           class="form-control"
-          name="enquiryType"
+          name="enquiryType" #enquiryType="ngModel" required
           [(ngModel)]="EnquiryModel.enquiryType"
           placeholder="Online / Walk-in / Phone"
         />
+        <div class="text-danger mt-1" *ngIf="enquiryType.invalid && (enquiryType.touched || enquiryForm.submitted)">
+          <small *ngIf="enquiryType.errors?.['required']">Enquiry type is required</small>
+          <small *ngIf="enquiryType.errors?.['pattern']">Enter a valid enquiry type</small>
+        </div>
       </div>
     </div>
     <h5 class="text-primary border-bottom pb-2 mb-3 mt-4">Enquiry Details</h5>
@@ -84,21 +92,24 @@
     </div>
     <div class="row mb-3">
       <div class="col-md-6">
-        <label class="form-label">Category</label>
-        <select class="form-select" name="categoryId" [(ngModel)]="EnquiryModel.categoryId">
+        <label class="form-label">Category<span class="error">*</span></label>
+        <select class="form-select" name="categoryId" #categoryId="ngModel" [(ngModel)]="EnquiryModel.categoryId" required>
           <option [ngValue]="null" disabled>-- Select Category --</option>
-          <option *ngFor="let item of categories" [ngValue]="item.categoryId">
-            {{ item.categoryName }}
+          <option *ngFor="let item of categories" [ngValue]="item.id">
+            {{ item.name }}
           </option>
         </select>
+        <div class="text-danger mt-1" *ngIf="categoryId.invalid && (categoryId.touched || enquiryForm.submitted)">
+          <small *ngIf="categoryId.errors?.['required']">Category is required</small>
+        </div>
       </div>
 
       <div class="col-md-6">
         <label class="form-label">Status</label>
         <select class="form-select" name="statusId" [(ngModel)]="EnquiryModel.statusId">
           <option [ngValue]="null" disabled>-- Select Status --</option>
-          <option *ngFor="let item of statuses" [ngValue]="item.statusId">
-            {{ item.statusName }}
+          <option *ngFor="let item of statuses" [ngValue]="item.id">
+            {{ item.name }}
           </option>
         </select>
       </div>
