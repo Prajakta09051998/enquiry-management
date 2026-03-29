@@ -106,12 +106,15 @@
 
       <div class="col-md-6">
         <label class="form-label">Status</label>
-        <select class="form-select" name="statusId" [(ngModel)]="EnquiryModel.statusId">
+        <select class="form-select" name="statusId" #statusId="ngModel" required [(ngModel)]="EnquiryModel.statusId">
           <option [ngValue]="null" disabled>-- Select Status --</option>
           <option *ngFor="let item of statuses" [ngValue]="item.id">
             {{ item.name }}
           </option>
         </select>
+         <div class="text-danger mt-1" *ngIf="statusId.invalid && (statusId.touched || enquiryForm.submitted)">
+          <small *ngIf="statusId.errors?.['required']">Status is required</small>
+        </div>
       </div>
     </div>
 
@@ -132,18 +135,24 @@
         <input
           type="date"
           class="form-control"
-          name="enquiryDate" [min]="today"
+          name="enquiryDate" [min]="today" #enquiryDate="ngModel" required
           [(ngModel)]="EnquiryModel.enquiryDate"
         />
+        <div class="text-danger mt-1" *ngIf="enquiryDate.invalid && (enquiryDate.touched || enquiryForm.submitted)">
+          <small *ngIf="enquiryDate.errors?.['required']">Enquiry date is required</small>
+        </div>
       </div>
       <div class="col-md-6">
         <label class="form-label">Follow Up Date</label>
         <input
           type="date"
           class="form-control"
-          name="followUpDate" [min]="today"
+          name="followUpDate" [min]="today" #followUpDate="ngModel" required
           [(ngModel)]="EnquiryModel.followUpDate"
         />
+        <div class="text-danger mt-1" *ngIf="followUpDate.invalid && (followUpDate.touched || enquiryForm.submitted)">
+          <small *ngIf="followUpDate.errors?.['required']">Follow-up date is required</small>
+        </div>
       </div>
     </div>
     <h5 class="text-primary border-bottom pb-2 mb-3 mt-4">Feedback</h5>

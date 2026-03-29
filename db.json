@@ -27,6 +27,76 @@
       "enquiryDate": "2026-03-13T00:00:00.000Z",
       "followUpDate": "2026-03-18T00:00:00.000Z",
       "feedback": "xftgdfgf"
+    },
+    {
+      "id": "1d19",
+      "customerName": "Prajakta kushe",
+      "customerEmail": "prajakta98@gmail.com",
+      "customerPhone": "9787878787",
+      "message": "xsdsdsdsdsds",
+      "categoryId": "3",
+      "statusId": "4",
+      "enquiryType": "Online",
+      "isConverted": false,
+      "enquiryDate": "2026-04-08T00:00:00.000Z",
+      "followUpDate": "2026-03-31T00:00:00.000Z",
+      "feedback": ""
+    },
+    {
+      "id": "4708",
+      "customerName": "Neha",
+      "customerEmail": "Neha@gmail.com",
+      "customerPhone": "9787878787",
+      "message": "Hisdsjsdsd",
+      "categoryId": "2",
+      "statusId": "4",
+      "enquiryType": "Online",
+      "isConverted": false,
+      "enquiryDate": "2026-03-29T00:00:00.000Z",
+      "followUpDate": "2026-03-31T00:00:00.000Z",
+      "feedback": "Good.."
+    },
+    {
+      "id": "dc8c",
+      "customerName": "Raj",
+      "customerEmail": "raj@gmail.com",
+      "customerPhone": "9778787878",
+      "message": "",
+      "categoryId": "1",
+      "statusId": "3",
+      "enquiryType": "Walk in",
+      "isConverted": false,
+      "enquiryDate": "2026-03-29T00:00:00.000Z",
+      "followUpDate": "2026-03-31T00:00:00.000Z",
+      "feedback": ""
+    },
+    {
+      "id": "92dd",
+      "customerName": "Sneha",
+      "customerEmail": "sneha@gmail.com",
+      "customerPhone": "9797887878",
+      "message": "",
+      "categoryId": "2",
+      "statusId": "4",
+      "enquiryType": "Phone",
+      "isConverted": false,
+      "enquiryDate": "2026-03-30T00:00:00.000Z",
+      "followUpDate": "2026-03-31T00:00:00.000Z",
+      "feedback": ""
+    },
+    {
+      "id": "4164",
+      "customerName": "John",
+      "customerEmail": "john@gmail.com",
+      "customerPhone": "9483756643",
+      "message": "",
+      "categoryId": "2",
+      "statusId": 0,
+      "enquiryType": "Walkin",
+      "isConverted": false,
+      "enquiryDate": "2026-04-01T00:00:00.000Z",
+      "followUpDate": "2026-04-07T00:00:00.000Z",
+      "feedback": "jkjkl"
     }
   ],
   "categories": [
@@ -45,10 +115,6 @@
     {
       "id": "4",
       "name": "Complaint"
-    },
-    {
-      "id": "5",
-      "name": "Feedback"
     }
   ],
   "statuses": [

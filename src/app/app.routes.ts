@@ -5,11 +5,12 @@ import { SubmitEnquiry } from './pages/submit-enquiry/submit-enquiry';
 import { EnquiryList } from './pages/enquiry-list/enquiry-list';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { AuthGuard } from './auth.guard';
+import { EnquiryCategory } from './pages/enquiry-category/enquiry-category';
 
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'login',
         pathMatch: 'full'
     },
     {
@@ -27,6 +28,10 @@ export const routes: Routes = [
     {
         path: "submit-enquiry/:id",
         component: SubmitEnquiry
+    },
+    {
+        path: "enquiry-report",
+        component: EnquiryCategory
     },
     {
         path: 'enquiry-list',

@@ -17,6 +17,9 @@ export class EnquiryList {
   enquiries: any[] = [];
   filteredEnquiries: any[] = [];
   statuses: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 6;
+  totalPages: number = 0;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -27,50 +30,58 @@ export class EnquiryList {
   getEnquiry() {
     this.http.get('http://localhost:3000/enquiries').subscribe((res: any) => {
       this.enquiries = res;
-       this.filteredEnquiries = res;
-      console.log(this.enquiries,'enquiry');
+      this.filteredEnquiries = res;
+      this.updatePagination();
+      console.log(this.enquiries, 'enquiry');
     })
   }
   getStatuses() {
     this.http.get('http://localhost:3000/statuses').subscribe((res: any) => {
       this.statuses = res;
-      console.log(this.statuses,'status');
-      }
+      console.log(this.statuses, 'status');
+    }
     )
   }
-  editEnquiry(id:any){
+  editEnquiry(id: any) {
     this.router.navigate(['/submit-enquiry', id]);
   }
- searchEnquiries() {
+  searchEnquiries() {
 
-  this.filteredEnquiries = this.enquiries.filter((enquiry: any) => {
+    this.filteredEnquiries = this.enquiries.filter((enquiry: any) => {
 
-    let statusMatch = true;
-    let dateMatch = true;
+      let statusMatch = true;
+      let dateMatch = true;
+      if (this.selectedStatus) {
+        statusMatch = String(enquiry.statusId) === String(this.selectedStatus);
+      }
+      if (this.selectedDate) {
 
-    // STATUS FILTER
-    if (this.selectedStatus) {
-      statusMatch = String(enquiry.statusId) === String(this.selectedStatus);
-    }
+        const enquiryDate = new Date(enquiry.enquiryDate)
+          .toISOString()
+          .split('T')[0];
 
-    // DATE FILTER
-    if (this.selectedDate) {
+        dateMatch = enquiryDate === this.selectedDate;
+      }
+      return statusMatch && dateMatch;
+    });
+  this.currentPage = 1; 
+  this.updatePagination();
+  }
+  clearFilters() {
+    this.selectedStatus = '';
+    this.selectedDate = '';
+    this.filteredEnquiries = [...this.enquiries];
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+  get paginatedEnquiries() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filteredEnquiries.slice(start, end);
+  }
 
-      const enquiryDate = new Date(enquiry.enquiryDate)
-        .toISOString()
-        .split('T')[0];
-
-      dateMatch = enquiryDate === this.selectedDate;
-    }
-
-    return statusMatch && dateMatch;
-
-  });
-
-}
-clearFilters() {
-  this.selectedStatus = '';
-  this.selectedDate = '';
-  this.filteredEnquiries = [...this.enquiries];
-}
+  // Update total pages
+  updatePagination() {
+    this.totalPages = Math.ceil(this.filteredEnquiries.length / this.itemsPerPage);
+  }
 }
